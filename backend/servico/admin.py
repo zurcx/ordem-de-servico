@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Servico, OrdemServico, OrdemServicoItem
 
-# Register your models here.
+admin.site.register(Servico)
+admin.site.register(OrdemServico)
+admin.site.register(OrdemServicoItem)
