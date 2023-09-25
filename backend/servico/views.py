@@ -1,14 +1,14 @@
 from django.shortcuts import render
-#from .models import OrdemServico
+from .models import OrdemServico
 
 def ordem_servico_list(request):
     template_name = 'servico/ordem_servico_list.html'
-   # object_list = OrdemServico.objects.all()
-   # context = {
-   #     'object_list': object_list
-   # }
+    object_list = OrdemServico.objects.all()
+    context = {
+        'object_list': object_list
+    }
 
-    return render(request, template_name)
+    return render(request, template_name, context)
 
 def ordem_servico_create(request):
     ...

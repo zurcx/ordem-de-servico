@@ -46,7 +46,7 @@ class OrdemServicoItem(models.Model):
         OrdemServico,
         on_delete=models.CASCADE,
         verbose_name='ordem_servico',
-        related_name='ordem_servico_item'
+        related_name='ordem_servico_itens'
 
     )
 

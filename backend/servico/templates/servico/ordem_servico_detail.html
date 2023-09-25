@@ -3,5 +3,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Detalhes da ...</h1>
+<h2>Detalhes da {{ object }} - {{ object.cliente }}</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Serviço</th>
+      <th>Valor</th>
+      <th>Próxima Visita</th>
+    </tr>  
+  </thead>
+  <tbody>
+    {% for item in object.ordem_servico_itens.all %}
+      <tr>
+        <td>{{ item.servico }}</td>
+        <td>{{ item.valor }}</td>
+        <td>{{ item.proxima_visita|date:"d/m/Y" }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 {% endblock content%}
