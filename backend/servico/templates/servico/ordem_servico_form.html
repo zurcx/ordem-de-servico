@@ -1,85 +1,94 @@
 <!-- ordem_servico_form.html -->
 
 {% extends "base.html" %}
+{% load static %}
 {% load widget_tweaks %}
 {% block content %}
-<h1>Adicionar Ordem de Serviço</h1>
-
-<form>
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Cliente</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="Cliente">
-    </div>
-  </div>
-  <p></p>
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Situação</label>
-    <div class="col-sm-10">
-      {% render_field form.situacao class="form-control" %}
-    </div>
-  </div>
-  <p></p>
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Serviço</label>
-    <div class="col-sm-10">
-      {% render_field form.servico class="form-control" %}
-    </div>
-  </div>
-  <p></p>
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Valor</label>
-    <div class="col-sm-10">
-      {% render_field form.valor class="form-control" min="0" step="0.01" %}
-    </div>
-  </div>
-  <p></p>
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Próxima Visita</label>
-    <div class="col-sm-10">
-      {% render_field form.proxima_visita class="form-control" %}
-    </div>
-  </div>
-  
-  <p>Endereço</p>
-  <p>Bairro</p>
-
-   <div class="form-group row">
-    <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Adicionar</button>
-    </div>
-  </div>
-</form>
- 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Descrição</th>
-      <th>Valor</th>
-      <th>Próx. Visita</th>
-      <th>Ação</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Troca de Óleo</td>
-      <td>299,00</td>
-      <td>29/10/2023</td>
-      <td class="text-primary">Deletar</td>
-    </tr>
-    <tr>
-      <td>Troca de Óleo</td>
-      <td>299,00</td>
-      <td>29/10/2023</td>
-      <td class="text-primary">Deletar</td>
-    </tr>
-    <tr>
-      <td>Troca de Óleo</td>
-      <td>299,00</td>
-      <td>29/10/2023</td>
-      <td class="text-primary">Deletar</td>
-    </tr>
-</table>
-
+<div x-data="getData">
+  <h1>Adicionar Ordem de Serviço</h1>
+    <form>
+      <!-- Buscar Cliente -->
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Cliente</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Cliente" x-model="searchCliente" x-on:input="getCliente">
+        </div>
+        <p x-text="searchCliente"></p>
+      </div>
+      <p></p>
+     <!-- Resultado Cliente --> 
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Cliente</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="Cliente" x-model="cliente.id">
+        </div>
+      </div>
+      <p></p>
+      
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Situação</label>
+        <div class="col-sm-10">
+          {% render_field form.situacao class="form-control" %}
+        </div>
+      </div>
+      <p></p>
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Serviço</label>
+        <div class="col-sm-10">
+          {% render_field form.servico class="form-control" %}
+        </div>
+      </div>
+      <p></p>
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Valor</label>
+        <div class="col-sm-10">
+          {% render_field form.valor class="form-control" min="0" step="0.01" %}
+        </div>
+      </div>
+      <p></p>
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Próxima Visita</label>
+        <div class="col-sm-10">
+          {% render_field form.proxima_visita class="form-control" %}
+        </div>
+      </div>
+      
+      <p>Endereço: <span x-text="cliente.endereco"></span></p>
+      <p>Bairro: <span x-text="cliente.bairro"></span></p>
+    
+       <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="button" class="btn btn-primary" @click="addItem">Adicionar</button>
+        </div>
+      </div>
+    </form>
+   
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Próx. Visita</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <template x-for="item in items" :key="item.id">
+        <tr>
+          <td x-text="item.servico">Lavagem</td>
+          <td>299,00</td>
+          <td>29/10/2023</td>
+          <td class="text-primary">Deletar</td>
+        </tr>
+      </template>
+    </tbody>
+  </table>
+</div>
 {% endblock content %}
+
+{% block js %}
+  <script src="{% static 'js/servico/servico.js' %}"></script>
+{% endblock js %}
+
+
 
