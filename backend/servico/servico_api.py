@@ -5,11 +5,15 @@ from ninja.orm import create_schema
 
 router = Router()
 
-ServicoSchema = create_schema(Servico)
+ServicoSchema = create_schema(Servico, fields=(
+    'id',
+    'titulo',
+))
 
 @router.get('servico/', response=List[ServicoSchema])
 def list_servico(request, search=None):
     if search:
+        return Servico.objects.filter(titulo__istartwith=search)
         ...
     return Servico.objects.all()
 

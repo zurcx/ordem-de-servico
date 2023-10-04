@@ -17,44 +17,54 @@
       </div>
       <p></p>
      <!-- Resultado Cliente --> 
-      <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Cliente</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" placeholder="Cliente" x-model="cliente.id">
-        </div>
-      </div>
+     <ul class="list-group"> 
+        <template class="list-group" x-for="cliente in clientes" :key="cliente.id">
+          <li class="list-group-item" x-text="cliente.razao_social" @click="getCliente(cliente)"></li>
+        </template>
+      </ul>
+      <p x-text="clienteSelecionado.id"></p>
       <p></p>
       
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Situação</label>
         <div class="col-sm-10">
-          {% render_field form.situacao class="form-control" %}
+          {% render_field form.situacao class="form-control" x-model="ordemServico.situacao"%}
         </div>
       </div>
       <p></p>
+      <!-- Buscar Servico -->
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Serviço</label>
         <div class="col-sm-10">
-          {% render_field form.servico class="form-control" %}
+          <input type="text" class="form-control" placeholder="Servico" x-model="searchServico" x-on:input="getServico">
         </div>
+        <p x-text="searchServico"></p>
       </div>
+      <p></p>
+     <!-- Resultado Serviço --> 
+     <ul class="list-group"> 
+        <template class="list-group" x-for="servico in servicos" :key="servico.id">
+          <li class="list-group-item" x-text="servico.titulo" @click="servicoSelecionado = servico"></li>
+        </template>
+      </ul>
+      <p x-text="servicoSelecionado.id"></p>
       <p></p>
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Valor</label>
         <div class="col-sm-10">
-          {% render_field form.valor class="form-control" min="0" step="0.01" %}
+          {% render_field form.valor class="form-control" min="0" step="0.01" x-model="ordemServico.valor" %}
         </div>
       </div>
       <p></p>
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Próxima Visita</label>
         <div class="col-sm-10">
-          {% render_field form.proxima_visita class="form-control" %}
+          {% render_field form.proxima_visita class="form-control" x-model="ordemServico.proximaVisita"%}
         </div>
       </div>
       
-      <p>Endereço: <span x-text="cliente.endereco"></span></p>
-      <p>Bairro: <span x-text="cliente.bairro"></span></p>
+      <p>Endereço: <span x-text="clienteSelecionado.endereco"></span></p>
+      <p>Bairro: <span x-text="clienteSelecionado.bairro"></span></p>
     
        <div class="form-group row">
         <div class="col-sm-10">
