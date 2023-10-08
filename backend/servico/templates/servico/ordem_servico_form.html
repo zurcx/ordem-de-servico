@@ -60,7 +60,7 @@
       <div class="form-group row">
         <label for="inputEmail3" class="col-sm-2 col-form-label">Próxima Visita</label>
         <div class="col-sm-10">
-          {% render_field form.proxima_visita class="form-control" x-model="ordemServicoItem.proximaVisita"%}
+          {% render_field form.proxima_visita class="form-control" x-model="ordemServicoItem.proximaVisita" %}
         </div>
       </div>
       
@@ -84,12 +84,14 @@
       </tr>
     </thead>
     <tbody>
-      <template x-for="item in items" :key="item.id">
+      <template x-for="item in ordemServicoItems" :key="item.id">
         <tr>
-          <td x-text="item.servico">Lavagem</td>
-          <td>299,00</td>
-          <td>29/10/2023</td>
-          <td class="text-primary">Deletar</td>
+          <td x-text="item.id"></td>
+          <td x-text="item.servico_id"></td>
+          <td x-text="item.servico_titulo"></td>
+          <td x-text="item.valor"></td>
+          <td x-text="item.proxima_visita"></td>
+          <td class="text-primary" @click="deleteOrdemServicoItem(item.id)">Deletar</td>
         </tr>
       </template>
     </tbody>
